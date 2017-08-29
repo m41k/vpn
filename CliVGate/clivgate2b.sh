@@ -2,12 +2,13 @@
 
 #	--percentage=82 \
 #	--image=edit-find \
+
 on(){
 	rm -f servers 2> /dev/null
 #	wget www.vpngate.net/api/iphone/ | \
 #	curl -o down www.vpngate.net/api/iphone/ | \
 #yad --title="Teste" --progress --progress-text="Buscando servidores" --pulsate --auto-close --auto-kill
-	wget www.vpngate.net/api/iphone/ -O servers 2>&1 | 
+	wget www.vpngate.net/api/iphone/ -O servers 2>&1 |
 	yad --progress \
 	--title="CliVGate" \
 	--width="200" \
@@ -41,21 +42,30 @@ on(){
 	tray
 	}
 
+#	 --image='emblem-web' \
+#	 --text="<b>For a free world github.com/m41k</b>" \
+#	 --image='emblem-web' \
+# 	 --image-on-top \
+
+
 off(){
-	yad --width=200 --title="CliVGATE" \
+	 yad --width=200 --title="CliVGATE" \
 	 --window-icon='network-vpn' \
-	 --button='Desconectar':0
+	 --text-align='center' \
+	 --text="<small>Created by: github.com/m41k</small>" \
+	 --buttons-layout='center' \
+	 --button='Desconectar':0\
+	 teste
 	   if [ $? -eq 0 ]; then
 	      killall openvpn &
-	      killall $0
 	   fi
 	}
 
 tray(){
-	yad --notification  \
+	yad --width=200 --notification  \
         --image=network-vpn \
-        --text "CliVGATE" \
-        --command=$0
+        --text "CliVGATE"
+	off
 }
 
 ifconfig | grep tun
